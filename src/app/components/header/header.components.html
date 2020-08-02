@@ -27,22 +27,17 @@
         Home
       </a>
 
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          Products
-        </a>
+      <a class="navbar-item" (click)="changePath('products')">
+        Products
+      </a>
 
-        <div class="navbar-dropdown">
-          <a class="navbar-item" *ngFor="let category of productCategory">
-            {{category}}
-          </a>
+      <a class="navbar-item">
+        Customers
+      </a>
 
-          <hr class="navbar-divider" />
-          <a class="navbar-item">
-            New Arrivals
-          </a>
-        </div>
-      </div>
+      <a class="navbar-item">
+        Sales
+      </a>
     </div>
 
     <div class="navbar-end">

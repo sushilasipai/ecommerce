@@ -7,12 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ecommerce';
-
-  productCategoryList = [
-    'Men',
-    'Women',
-    'Children',
-    'Home & Decor',
-    'Beauty & Living',
-  ];
 }
