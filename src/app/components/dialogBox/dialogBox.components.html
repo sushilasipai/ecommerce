@@ -1,29 +1,58 @@
-<h1 mat-dialog-title>Row Action :: <strong>{{action}}</strong></h1>
-<div mat-dialog-content>
-  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-    <input
-      placeholder="{{action}} Name"
-      matInput
-      [(ngModel)]="local_data.product_name"
-    />
-    <input
-      placeholder="{{action}} Rate"
-      matInput
-      [(ngModel)]="local_data.product_rate"
-    />
-    <input
-      placeholder="{{action}} Quantity"
-      matInput
-      [(ngModel)]="local_data.product_qty"
-    />
-  </mat-form-field>
-  <ng-template #elseTemplate>
-    Sure to delete <b>{{local_data.product_name}}</b>?
-  </ng-template>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="doAction()">{{action}}</button>
-  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">
-    Cancel
-  </button>
+<div
+  class="modal"
+  aria-hidden="false"
+  style="display: block;"
+  ng-show="isPopupVisible"
+>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <h1 class="modal-card-title"><strong>{{action}} Product</strong></h1>
+    </header>
+    <section class="modal-card-body">
+      <div>
+        <div class="container" *ngIf="action != 'Delete'; else elseTemplate">
+          <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                [(ngModel)]="local_data.product_name"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Rate</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                [(ngModel)]="local_data.product_rate"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Quantity</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                [(ngModel)]="local_data.product_qty"
+              />
+            </div>
+          </div>
+        </div>
+        <ng-template #elseTemplate>
+          Sure to delete <b>{{local_data.product_name}}</b>?
+        </ng-template>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" (click)="doAction()">{{action}}</button>
+      <button class="button is-warning" (click)="closeDialog()">Cancel</button>
+    </footer>
+  </div>
 </div>
