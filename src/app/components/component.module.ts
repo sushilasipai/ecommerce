@@ -1,15 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HeaderComponent } from './header/header.components';
-import { DialogBoxComponent } from './dialogBox/dialogBox.components';
+import { ProductDialogBoxComponent } from './productDialogBox/productDialogBox.components';
+import { CustomerDialogBoxComponent } from './customerDialogBox/customerDialogBox.components';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [HeaderComponent, DialogBoxComponent],
+  declarations: [
+    HeaderComponent,
+    ProductDialogBoxComponent,
+    CustomerDialogBoxComponent,
+  ],
   imports: [BrowserModule, FormsModule],
   providers: [],
   bootstrap: [],
-  entryComponents: [DialogBoxComponent],
-  exports: [HeaderComponent, DialogBoxComponent],
+  entryComponents: [ProductDialogBoxComponent, CustomerDialogBoxComponent],
+  exports: [
+    HeaderComponent,
+    ProductDialogBoxComponent,
+    CustomerDialogBoxComponent,
+  ],
 })
 export class ComponentsModule {}

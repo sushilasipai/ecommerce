@@ -42,17 +42,18 @@ export class ProductService {
       product_rate: newProduct.product_rate,
       product_qty: newProduct.product_qty,
     });
+    return this.productList;
   }
 
   updateProduct(newProduct) {
-    this.productList = this.productList.filter((value, key) => {
+    this.productList.filter((value, key) => {
       if (value.product_id == newProduct.product_id) {
         value.product_name = newProduct.product_name;
         value.product_qty = newProduct.product_qty;
         value.product_rate = newProduct.product_rate;
       }
-      return true;
     });
+    return this.productList;
   }
 
   deleteProduct(newProduct) {

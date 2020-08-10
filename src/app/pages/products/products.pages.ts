@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/products.services';
-import { DialogBoxComponent } from 'src/app/components/dialogBox/dialogBox.components';
+import { ProductDialogBoxComponent } from 'src/app/components/productDialogBox/productDialogBox.components';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
@@ -23,21 +23,21 @@ export class ProductsComponent {
     const dialogConfig = new MatDialogConfig();
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
-    dialogConfig.id = 'app-dialogBox';
+    dialogConfig.id = 'product-dialogBox';
     dialogConfig.height = '550px';
     dialogConfig.width = '600px';
     dialogConfig.data = obj;
-    const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
+    const dialogRef = this.dialog.open(ProductDialogBoxComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('after dialog box closed');
       console.log(result.data);
       if (result.event == 'Add') {
-        this.productService.addProduct(result.data);
+        this.products = this.productService.addProduct(result.data);
       } else if (result.event == 'Update') {
-        this.productService.updateProduct(result.data);
+        this.products = this.productService.updateProduct(result.data);
       } else if (result.event == 'Delete') {
-        this.productService.deleteProduct(result.data);
+        this.products = this.productService.deleteProduct(result.data);
       }
     });
   }

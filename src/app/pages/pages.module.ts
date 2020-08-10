@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.pages';
 import { HomeComponent } from './home/home.pages';
 import { SignupComponent } from './signup/signup.pages';
 import { ProductsComponent } from './products/products.pages';
+import { CustomersComponent } from './customers/customers.pages';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     SignupComponent,
     ProductsComponent,
+    CustomersComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +27,12 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [],
   bootstrap: [],
-  exports: [LoginComponent, HomeComponent],
+  exports: [
+    LoginComponent,
+    HomeComponent,
+    SignupComponent,
+    ProductsComponent,
+    CustomersComponent,
+  ],
 })
 export class PagesModule {}

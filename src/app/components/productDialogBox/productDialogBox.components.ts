@@ -10,18 +10,15 @@ export interface ProductData {
 
 @Component({
   selector: 'app-dialogBox',
-  templateUrl: './dialogBox.components.html',
-  styleUrls: ['./dialogBox.components.css'],
+  templateUrl: './productDialogBox.components.html',
+  styleUrls: ['./productDialogBox.components.css'],
 })
-export class DialogBoxComponent {
+export class ProductDialogBoxComponent {
   action: string;
   local_data: any;
-  updated_product_name: string;
-  updated_product_qty: number;
-  updated_product_rate: number;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogBoxComponent>,
+    public dialogRef: MatDialogRef<ProductDialogBoxComponent>,
     //@Optional() is used to prevent error if no data is passed
     @Optional() @Inject(MAT_DIALOG_DATA) public data: ProductData
   ) {
@@ -33,9 +30,6 @@ export class DialogBoxComponent {
   doAction() {
     console.log('inside doAction');
     console.log(this.local_data);
-    /*console.log(this.updated_product_name);
-    console.log(this.updated_product_qty);
-    console.log(this.updated_product_rate);*/
     this.dialogRef.close({ event: this.action, data: this.local_data });
   }
 

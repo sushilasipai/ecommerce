@@ -1,0 +1,29 @@
+<div class="container">
+  <button class="button is-info mt-4" (click)="openDialog('Add',{})">
+    Add Customer
+  </button>
+
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th>Customer ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Contact Number</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <th>{{customer.customer_id}}</th>
+        <td>{{customer.customer_name}}</td>
+        <td>{{customer.customer_address}}</td>
+        <td>{{customer.customer_contact}}</td>
+        <td class="action-link">
+          <a (click)="openDialog('Update',customer)">Edit</a> |
+          <a (click)="openDialog('Delete',customer)">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
