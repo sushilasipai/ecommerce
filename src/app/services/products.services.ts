@@ -31,8 +31,10 @@ export class ProductService {
     return this.productList;
   }
 
-  getProductById(id) {
-    return this.productList.filter((pid) => pid == id);
+  getProductByName(searchName) {
+    return this.productList.filter((name) =>
+      name.product_name.toLowerCase().includes(searchName.toLowerCase())
+    );
   }
 
   addProduct(newProduct) {

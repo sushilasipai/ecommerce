@@ -39,10 +39,6 @@ export class SaleService {
     return this.saleList;
   }
 
-  getsaleById(id) {
-    return this.saleList.filter((pid) => pid == id);
-  }
-
   addsale(newsale) {
     this.saleList.push({
       sale_id: this.saleList.length + 1,

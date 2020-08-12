@@ -11,11 +11,19 @@ import { CustomerDialogBoxComponent } from '../../components/customerDialogBox/c
 })
 export class CustomersComponent {
   customers: any[];
+  searchString: string;
+
   constructor(
     private customerService: CustomerService,
     private dialog: MatDialog
   ) {
     this.customers = customerService.getcustomerList();
+  }
+
+  searchCustomer() {
+    console.log(this.searchString);
+    this.customers = this.customerService.getCustomerByName(this.searchString);
+    this.searchString = '';
   }
 
   openDialog(action, obj) {

@@ -30,6 +30,11 @@ export class SaleDialogBoxComponent {
     this.action = this.local_data.action;
   }
 
+  calculateTotal() {
+    this.local_data.sale_total =
+      this.local_data.sale_qty * this.local_data.sale_rate;
+  }
+
   doAction() {
     console.log('inside doAction');
     console.log(this.local_data);

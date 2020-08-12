@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.components';
 import { ProductDialogBoxComponent } from './productDialogBox/productDialogBox.components';
 import { CustomerDialogBoxComponent } from './customerDialogBox/customerDialogBox.components';
@@ -13,7 +13,7 @@ import { SaleDialogBoxComponent } from './saleDialogBox/saleDialogBox.components
     CustomerDialogBoxComponent,
     SaleDialogBoxComponent,
   ],
-  imports: [BrowserModule, FormsModule],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [],
   entryComponents: [

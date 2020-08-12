@@ -30,8 +30,10 @@ export class CustomerService {
     return this.customerList;
   }
 
-  getcustomerById(id) {
-    return this.customerList.filter((pid) => pid == id);
+  getCustomerByName(searchName) {
+    return this.customerList.filter((name) =>
+      name.customer_name.toLowerCase().includes(searchName.toLowerCase())
+    );
   }
 
   addcustomer(newcustomer) {

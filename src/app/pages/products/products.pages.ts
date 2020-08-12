@@ -11,11 +11,19 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 })
 export class ProductsComponent {
   products: any[];
+  searchString: string;
+
   constructor(
     private productService: ProductService,
     private dialog: MatDialog
   ) {
     this.products = productService.getProductList();
+  }
+
+  searchProduct() {
+    console.log(this.searchString);
+    this.products = this.productService.getProductByName(this.searchString);
+    this.searchString = '';
   }
 
   openDialog(action, obj) {

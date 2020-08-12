@@ -1,7 +1,25 @@
 <div class="container">
-  <button class="button is-info mt-4" (click)="openDialog('Add',{})">
-    Add Customer
-  </button>
+  <div class="columns mt-4">
+    <div class="column is-4">
+      <button class="button is-info" (click)="openDialog('Add',{})">
+        Add Customer
+      </button>
+    </div>
+    <div class="column is-4">
+      <input
+        class="input"
+        type="text"
+        placeholder="Search by Name"
+        [(ngModel)]="searchString"
+        (keyup.enter)="searchCustomer()"
+      />
+    </div>
+    <div class="column is-2">
+      <button class="button is-warning" (click)="searchCustomer()">
+        Search
+      </button>
+    </div>
+  </div>
 
   <table class="table is-fullwidth">
     <thead>

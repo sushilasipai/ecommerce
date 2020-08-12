@@ -11,8 +11,14 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 })
 export class SalesComponent {
   sales: any[];
+  invoiceFlg = false;
+
   constructor(private saleService: SaleService, private dialog: MatDialog) {
     this.sales = saleService.getsaleList();
+  }
+
+  invoiceFlgChange() {
+    this.invoiceFlg = true;
   }
 
   openDialog(action, obj) {

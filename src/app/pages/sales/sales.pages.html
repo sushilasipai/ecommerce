@@ -1,11 +1,21 @@
 <div class="container">
-  <button class="button is-info mt-4" (click)="openDialog('Add',{})">
-    Add Sale
-  </button>
+  <div class="columns mt-4">
+    <div class="column is-2">
+      <button class="button is-info" (click)="openDialog('Add',{})">
+        Add Sale
+      </button>
+    </div>
+    <div class="column">
+      <button class="button is-info" (click)="invoiceFlgChange()">
+        Generate Invoice
+      </button>
+    </div>
+  </div>
 
   <table class="table is-fullwidth">
     <thead>
       <tr>
+        <th *ngIf="invoiceFlg">Select</th>
         <th>Sale ID</th>
         <th>Customer Name</th>
         <th>Contact Number</th>
@@ -13,11 +23,16 @@
         <th>Quantity</th>
         <th>Rate</th>
         <th>Total Amount</th>
-        <th>Action</th>
+        <th *ngIf="!invoiceFlg">Action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let sale of sales">
+        <td *ngIf="invoiceFlg">
+          <label class="checkbox">
+            <input type="checkbox" />
+          </label>
+        </td>
         <th>{{sale.sale_id}}</th>
         <td>{{sale.sale_customer_name}}</td>
         <td>{{sale.sale_customer_contact}}</td>
@@ -25,7 +40,7 @@
         <td>{{sale.sale_qty}}</td>
         <td>{{sale.sale_rate}}</td>
         <td>{{sale.sale_total}}</td>
-        <td class="action-link">
+        <td class="action-link" *ngIf="!invoiceFlg">
           <a (click)="openDialog('Update',sale)">Edit</a> |
           <a (click)="openDialog('Delete',sale)">Delete</a>
         </td>

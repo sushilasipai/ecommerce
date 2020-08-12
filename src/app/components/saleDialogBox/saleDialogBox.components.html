@@ -12,71 +12,73 @@
     <section class="modal-card-body">
       <div>
         <div class="container" *ngIf="action != 'Delete'; else elseTemplate">
-          <div class="field">
-            <label class="label">Customer Name</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                [(ngModel)]="local_data.sale_customer_name"
-              />
+          <div class="columns">
+            <div class="field column is-half">
+              <label class="label">Customer Name</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  [(ngModel)]="local_data.sale_customer_name"
+                />
+              </div>
+            </div>
+
+            <div class="field column is-6">
+              <label class="label">Contact Number</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="number"
+                  [(ngModel)]="local_data.sale_customer_contact"
+                />
+              </div>
             </div>
           </div>
 
-          <div class="field">
-            <label class="label">Contact Number</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                [(ngModel)]="local_data.sale_customer_contact"
-              />
+          <div class="columns">
+            <div class="field column is-half">
+              <label class="label">Product</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  [(ngModel)]="local_data.sale_product"
+                />
+              </div>
+            </div>
+            <div class="field column is-2.5">
+              <label class="label">Quantity</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="number"
+                  [(ngModel)]="local_data.sale_qty"
+                  (keyup)="calculateTotal()"
+                />
+              </div>
+            </div>
+            <div class="field column is-2.5">
+              <label class="label">Rate</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="number"
+                  [(ngModel)]="local_data.sale_rate"
+                  (keyup)="calculateTotal()"
+                />
+              </div>
             </div>
           </div>
 
-          <div class="field">
-            <label class="label">Product</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                [(ngModel)]="local_data.sale_product"
-              />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Rate</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                [(ngModel)]="local_data.sale_rate"
-              />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Quantity</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                [(ngModel)]="local_data.sale_qty"
-              />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Total</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                [(ngModel)]="local_data.sale_total"
-              />
-            </div>
-          </div>
+          <input
+            class="input is-hidden"
+            type="number"
+            [(ngModel)]="local_data.sale_total"
+          />
         </div>
         <ng-template #elseTemplate>
-          Sure to delete <b>{{local_data.sale_id}}</b>?
+          Sure to delete Sale ID <b>{{local_data.sale_id}}</b>?
         </ng-template>
       </div>
     </section>
