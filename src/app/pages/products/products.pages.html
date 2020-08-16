@@ -10,12 +10,11 @@
         class="input"
         type="text"
         placeholder="Search by Name"
-        [(ngModel)]="searchString"
-        (keyup.enter)="searchProduct()"
+        (change)="searchProduct($event)"
       />
     </div>
     <div class="column is-2">
-      <button class="button is-warning" (click)="searchProduct()">
+      <button class="button is-warning">
         Search
       </button>
     </div>
@@ -33,10 +32,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of products">
-        <th>{{product.product_id}}</th>
-        <td>{{product.product_name}}</td>
-        <td>{{product.product_rate}}</td>
-        <td>{{product.product_qty}}</td>
+        <td>{{product._id}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.rate}}</td>
+        <td>{{product.qty}}</td>
         <td class="action-link">
           <a (click)="openDialog('Update',product)">Edit</a> |
           <a (click)="openDialog('Delete',product)">Delete</a>

@@ -14,13 +14,27 @@ export class SalesComponent {
   invoiceFlg = false;
 
   constructor(private saleService: SaleService, private dialog: MatDialog) {
-    this.sales = saleService.getsaleList();
+    //get all sales
+    saleService.getsaleList().subscribe((data: any) => {
+      this.sales = data.sales;
+    });
   }
 
-  invoiceFlgChange() {
+  //generate invoice
+  genInvoice() {
     this.invoiceFlg = true;
+    //shows only those sales whose invoice generation is pending
+    this.saleService.getpendingsale().subscribe((data: any) => {
+      this.sales = [...data.sales];
+    });
   }
 
+  //create new record in invoice table and update invoice_gen_flg field in sale table
+  invoiceGenUpdate() {
+    //call this.saleService.updatesale function for invoice_gen_flg update
+  }
+
+  //open dialog box for sales  add/edit/delete operation
   openDialog(action, obj) {
     obj.action = action;
     const dialogConfig = new MatDialogConfig();
@@ -32,15 +46,32 @@ export class SalesComponent {
     dialogConfig.data = obj;
     const dialogRef = this.dialog.open(SaleDialogBoxComponent, dialogConfig);
 
+    //perform add/edit/delete operation on sale after dialog box submit
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('after dialog box closed');
-      console.log(result.data);
       if (result.event == 'Add') {
-        this.sales = this.saleService.addsale(result.data);
+        this.saleService.addsale(result.data).subscribe((data: any) => {
+          this.sales = [...this.sales, data.sale];
+        });
       } else if (result.event == 'Update') {
-        this.sales = this.saleService.updatesale(result.data);
+        this.saleService.updatesale(result.data).subscribe((data: any) => {
+          this.sales.filter((value, key) => {
+            if (value._id == result.data._id) {
+              value.cust_name = result.data.cust_name;
+              value.cust_contact = result.data.cust_contact;
+              value.sale = result.data.sale;
+              value.rate = result.data.rate;
+              value.qty = result.data.qty;
+              value.total = result.data.total;
+              value.invoice_gen_flg = result.data.invoice_gen_flg;
+            }
+          });
+        });
       } else if (result.event == 'Delete') {
-        this.sales = this.saleService.deletesale(result.data);
+        this.saleService.deletesale(result.data).subscribe((data: any) => {
+          this.sales = this.sales.filter((value, key) => {
+            return value._id != result.data._id;
+          });
+        });
       }
     });
   }

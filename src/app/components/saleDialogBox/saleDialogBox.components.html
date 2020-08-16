@@ -19,7 +19,7 @@
                 <input
                   class="input"
                   type="text"
-                  [(ngModel)]="local_data.sale_customer_name"
+                  [(ngModel)]="local_data.cust_name"
                 />
               </div>
             </div>
@@ -30,7 +30,7 @@
                 <input
                   class="input"
                   type="number"
-                  [(ngModel)]="local_data.sale_customer_contact"
+                  [(ngModel)]="local_data.cust_contact"
                 />
               </div>
             </div>
@@ -43,7 +43,7 @@
                 <input
                   class="input"
                   type="text"
-                  [(ngModel)]="local_data.sale_product"
+                  [(ngModel)]="local_data.product"
                 />
               </div>
             </div>
@@ -53,7 +53,7 @@
                 <input
                   class="input"
                   type="number"
-                  [(ngModel)]="local_data.sale_qty"
+                  [(ngModel)]="local_data.qty"
                   (keyup)="calculateTotal()"
                 />
               </div>
@@ -64,7 +64,7 @@
                 <input
                   class="input"
                   type="number"
-                  [(ngModel)]="local_data.sale_rate"
+                  [(ngModel)]="local_data.rate"
                   (keyup)="calculateTotal()"
                 />
               </div>
@@ -74,11 +74,11 @@
           <input
             class="input is-hidden"
             type="number"
-            [(ngModel)]="local_data.sale_total"
+            [(ngModel)]="local_data.total"
           />
         </div>
         <ng-template #elseTemplate>
-          Sure to delete Sale ID <b>{{local_data.sale_id}}</b>?
+          Sure to delete Sale ID <b>{{local_data._id}}</b>?
         </ng-template>
       </div>
     </section>

@@ -1,65 +1,51 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class CustomerService {
   constructor(private http: HttpClient) {}
 
-  customerList = [
-    {
-      customer_id: 1,
-      customer_name: 'Ram Shakya',
-      customer_address: 'ktm',
-      customer_contact: 5000,
-    },
-    {
-      customer_id: 2,
-      customer_name: 'Shyam Hona',
-      customer_address: 'bkt',
-      customer_contact: 8000,
-    },
-    {
-      customer_id: 3,
-      customer_name: 'maya thapa',
-      customer_address: 'patan',
-      customer_contact: 900,
-    },
-  ];
-
+  //get all customers
   getcustomerList() {
-    return this.customerList;
+    return this.http.get(`${environment.apiURL}/customer`);
   }
 
-  getCustomerByName(searchName) {
-    return this.customerList.filter((name) =>
-      name.customer_name.toLowerCase().includes(searchName.toLowerCase())
-    );
-  }
-
+  //add new customer
   addcustomer(newcustomer) {
-    this.customerList.push({
-      customer_id: this.customerList.length + 1,
-      customer_name: newcustomer.customer_name,
-      customer_address: newcustomer.customer_address,
-      customer_contact: newcustomer.customer_contact,
+    let customer = {
+      name: newcustomer.name,
+      address: newcustomer.address,
+      contact: newcustomer.contact,
+    };
+    let res = this.http.post(`${environment.apiURL}/customer`, {
+      ...customer,
     });
-    return this.customerList;
+    return res;
   }
 
+  //update customer by id
   updatecustomer(newcustomer) {
-    this.customerList.filter((value, key) => {
-      if (value.customer_id == newcustomer.customer_id) {
-        value.customer_name = newcustomer.customer_name;
-        value.customer_contact = newcustomer.customer_contact;
-        value.customer_address = newcustomer.customer_address;
+    let customer = {
+      name: newcustomer.name,
+      address: newcustomer.address,
+      contact: newcustomer.contact,
+    };
+    let res = this.http.post(
+      `${environment.apiURL}/customer/update/` + newcustomer._id,
+      {
+        ...customer,
       }
-    });
-    return this.customerList;
+    );
+    return res;
   }
 
+  //delete customer by id
   deletecustomer(newcustomer) {
-    return this.customerList.filter((value, key) => {
-      return value.customer_id != newcustomer.customer_id;
-    });
+    let res = this.http.post(
+      `${environment.apiURL}/customer/delete/` + newcustomer._id,
+      {}
+    );
+    return res;
   }
 }

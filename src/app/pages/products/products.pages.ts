@@ -11,21 +11,29 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 })
 export class ProductsComponent {
   products: any[];
-  searchString: string;
+  originalProducts: any[];
 
   constructor(
     private productService: ProductService,
     private dialog: MatDialog
   ) {
-    this.products = productService.getProductList();
+    //get all products
+    productService.getProductList().subscribe((data: any) => {
+      this.products = data.products;
+      this.originalProducts = this.products;
+    });
   }
 
-  searchProduct() {
-    console.log(this.searchString);
-    this.products = this.productService.getProductByName(this.searchString);
-    this.searchString = '';
+  //search product with name containing given string
+  searchProduct(event) {
+    let val = event.target.value.toLowerCase();
+    let filteredProducts = this.originalProducts.filter((c) => {
+      return c.name.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.products = filteredProducts;
   }
 
+  //open dialog box for add/edit/delete operation on products
   openDialog(action, obj) {
     obj.action = action;
     const dialogConfig = new MatDialogConfig();
@@ -37,15 +45,37 @@ export class ProductsComponent {
     dialogConfig.data = obj;
     const dialogRef = this.dialog.open(ProductDialogBoxComponent, dialogConfig);
 
+    //perform add/edit/delete operation on product after dialog box submit
     dialogRef.afterClosed().subscribe((result) => {
       console.log('after dialog box closed');
       console.log(result.data);
       if (result.event == 'Add') {
-        this.products = this.productService.addProduct(result.data);
+        this.productService.addProduct(result.data).subscribe((data: any) => {
+          this.products = [...this.products, data.product];
+          this.originalProducts = this.products;
+        });
       } else if (result.event == 'Update') {
-        this.products = this.productService.updateProduct(result.data);
+        this.productService
+          .updateProduct(result.data)
+          .subscribe((data: any) => {
+            this.products.filter((value, key) => {
+              if (value._id == result.data._id) {
+                value.name = result.data.name;
+                value.rate = result.data.rate;
+                value.qty = result.data.qty;
+              }
+            });
+            this.originalProducts = this.products;
+          });
       } else if (result.event == 'Delete') {
-        this.products = this.productService.deleteProduct(result.data);
+        this.productService
+          .deleteProduct(result.data)
+          .subscribe((data: any) => {
+            this.products = this.products.filter((value, key) => {
+              return value._id != result.data._id;
+            });
+            this.originalProducts = this.products;
+          });
       }
     });
   }

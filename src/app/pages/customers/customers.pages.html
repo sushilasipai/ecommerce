@@ -10,12 +10,11 @@
         class="input"
         type="text"
         placeholder="Search by Name"
-        [(ngModel)]="searchString"
-        (keyup.enter)="searchCustomer()"
+        (change)="searchCustomer($event)"
       />
     </div>
     <div class="column is-2">
-      <button class="button is-warning" (click)="searchCustomer()">
+      <button class="button is-warning">
         Search
       </button>
     </div>
@@ -33,10 +32,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let customer of customers">
-        <th>{{customer.customer_id}}</th>
-        <td>{{customer.customer_name}}</td>
-        <td>{{customer.customer_address}}</td>
-        <td>{{customer.customer_contact}}</td>
+        <td>{{customer._id}}</td>
+        <td>{{customer.name}}</td>
+        <td>{{customer.address}}</td>
+        <td>{{customer.contact}}</td>
         <td class="action-link">
           <a (click)="openDialog('Update',customer)">Edit</a> |
           <a (click)="openDialog('Delete',customer)">Delete</a>

@@ -6,7 +6,7 @@
       </button>
     </div>
     <div class="column">
-      <button class="button is-info" (click)="invoiceFlgChange()">
+      <button class="button is-info" (click)="genInvoice()">
         Generate Invoice
       </button>
     </div>
@@ -33,13 +33,13 @@
             <input type="checkbox" />
           </label>
         </td>
-        <th>{{sale.sale_id}}</th>
-        <td>{{sale.sale_customer_name}}</td>
-        <td>{{sale.sale_customer_contact}}</td>
-        <td>{{sale.sale_product}}</td>
-        <td>{{sale.sale_qty}}</td>
-        <td>{{sale.sale_rate}}</td>
-        <td>{{sale.sale_total}}</td>
+        <td>{{sale._id}}</td>
+        <td>{{sale.cust_name}}</td>
+        <td>{{sale.cust_contact}}</td>
+        <td>{{sale.product}}</td>
+        <td>{{sale.qty}}</td>
+        <td>{{sale.rate}}</td>
+        <td>{{sale.total}}</td>
         <td class="action-link" *ngIf="!invoiceFlg">
           <a (click)="openDialog('Update',sale)">Edit</a> |
           <a (click)="openDialog('Delete',sale)">Delete</a>
@@ -47,4 +47,10 @@
       </tr>
     </tbody>
   </table>
+
+  <div class="is-pulled-right" *ngIf="invoiceFlg">
+    <button class="button is-success" (click)="invoiceGenUpdate()">
+      Generate
+    </button>
+  </div>
 </div>

@@ -37,6 +37,16 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: '',
+    redirectTo: 'pages/customers',
+    pathMatch: 'full',
+  },
+  {
+    path: '**',
+    redirectTo: 'pages/customers',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

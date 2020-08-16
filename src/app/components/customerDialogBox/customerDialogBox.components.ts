@@ -2,10 +2,10 @@ import { Component, Inject, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface CustomerData {
-  customer_id: number;
-  customer_name: string;
-  customer_address: number;
-  customer_contact: number;
+  _id: number;
+  name: string;
+  address: number;
+  contact: number;
 }
 
 @Component({
@@ -26,12 +26,12 @@ export class CustomerDialogBoxComponent {
     this.action = this.local_data.action;
   }
 
+  //close dialog box after dialog box submit
   doAction() {
-    console.log('inside doAction');
-    console.log(this.local_data);
     this.dialogRef.close({ event: this.action, data: this.local_data });
   }
 
+  //close dialog box after dialog box cancel
   closeDialog() {
     this.dialogRef.close({ event: 'Cancel' });
   }

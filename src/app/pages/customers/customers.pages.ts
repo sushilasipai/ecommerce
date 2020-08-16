@@ -12,20 +12,28 @@ import { CustomerDialogBoxComponent } from '../../components/customerDialogBox/c
 export class CustomersComponent {
   customers: any[];
   searchString: string;
+  originalCustomers: any[];
 
   constructor(
     private customerService: CustomerService,
     private dialog: MatDialog
   ) {
-    this.customers = customerService.getcustomerList();
+    customerService.getcustomerList().subscribe((data: any) => {
+      this.customers = data.customers;
+      this.originalCustomers = this.customers;
+    });
   }
 
-  searchCustomer() {
-    console.log(this.searchString);
-    this.customers = this.customerService.getCustomerByName(this.searchString);
-    this.searchString = '';
+  //search customer with name containing given string
+  searchCustomer(event) {
+    let val = event.target.value.toLowerCase();
+    let filteredCustomers = this.originalCustomers.filter((c) => {
+      return c.name.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.customers = filteredCustomers;
   }
 
+  //open customer add/edit/delete dialog box
   openDialog(action, obj) {
     obj.action = action;
     const dialogConfig = new MatDialogConfig();
@@ -40,15 +48,35 @@ export class CustomersComponent {
       dialogConfig
     );
 
+    //perform add/update/delete after customer dialog box submit
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('after dialog box closed');
-      console.log(result.data);
       if (result.event == 'Add') {
-        this.customers = this.customerService.addcustomer(result.data);
+        this.customerService.addcustomer(result.data).subscribe((data: any) => {
+          this.customers = [...this.customers, data.customer];
+          this.originalCustomers = this.customers;
+        });
       } else if (result.event == 'Update') {
-        this.customers = this.customerService.updatecustomer(result.data);
+        this.customerService
+          .updatecustomer(result.data)
+          .subscribe((data: any) => {
+            this.customers.filter((value, key) => {
+              if (value._id == result.data._id) {
+                value.name = result.data.name;
+                value.address = result.data.address;
+                value.contact = result.data.contact;
+              }
+            });
+            this.originalCustomers = this.customers;
+          });
       } else if (result.event == 'Delete') {
-        this.customers = this.customerService.deletecustomer(result.data);
+        this.customerService
+          .deletecustomer(result.data)
+          .subscribe((data: any) => {
+            this.customers = this.customers.filter((value, key) => {
+              return value._id != result.data._id;
+            });
+            this.originalCustomers = this.customers;
+          });
       }
     });
   }

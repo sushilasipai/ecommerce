@@ -15,11 +15,7 @@
           <div class="field">
             <label class="label">Name</label>
             <div class="control">
-              <input
-                class="input"
-                type="text"
-                [(ngModel)]="local_data.customer_name"
-              />
+              <input class="input" type="text" [(ngModel)]="local_data.name" />
             </div>
           </div>
 
@@ -29,7 +25,7 @@
               <input
                 class="input"
                 type="text"
-                [(ngModel)]="local_data.customer_address"
+                [(ngModel)]="local_data.address"
               />
             </div>
           </div>
@@ -40,13 +36,13 @@
               <input
                 class="input"
                 type="number"
-                [(ngModel)]="local_data.customer_contact"
+                [(ngModel)]="local_data.contact"
               />
             </div>
           </div>
         </div>
         <ng-template #elseTemplate>
-          Sure to delete <b>{{local_data.customer_name}}</b>?
+          Sure to delete <b>{{local_data.name}}</b>?
         </ng-template>
       </div>
     </section>

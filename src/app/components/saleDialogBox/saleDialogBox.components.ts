@@ -2,13 +2,14 @@ import { Component, Inject, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface SaleData {
-  sale_id: number;
-  sale_customer_name: string;
-  sale_customer_contact: number;
-  sale_product: string;
-  sale_qty: number;
-  sale_rate: number;
-  sale_total: number;
+  _id: number;
+  cust_name: string;
+  cust_contact: number;
+  product: string;
+  qty: number;
+  rate: number;
+  total: number;
+  invoice_gen_flg: boolean;
 }
 
 @Component({
@@ -25,22 +26,21 @@ export class SaleDialogBoxComponent {
     //@Optional() is used to prevent error if no data is passed
     @Optional() @Inject(MAT_DIALOG_DATA) public data: SaleData
   ) {
-    console.log('data');
     this.local_data = { ...data };
     this.action = this.local_data.action;
   }
 
+  //calculate total cost
   calculateTotal() {
-    this.local_data.sale_total =
-      this.local_data.sale_qty * this.local_data.sale_rate;
+    this.local_data.total = this.local_data.qty * this.local_data.rate;
   }
 
+  //close dialog box after submit
   doAction() {
-    console.log('inside doAction');
-    console.log(this.local_data);
     this.dialogRef.close({ event: this.action, data: this.local_data });
   }
 
+  //close dialog box after cancel
   closeDialog() {
     this.dialogRef.close({ event: 'Cancel' });
   }
